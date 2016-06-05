@@ -1,10 +1,10 @@
+#coding=utf-8
 import urllib2
 import traceback
 import os
 import sys
 from BeautifulSoup import BeautifulSoup
 reload(sys)
-sys.setdefaultencoding( "utf-8" )
 os.system("cd target")
 os.system("rm -rf *.txt")
 ranger={'0~200','200~400','400~600','600~800','800~1000','1000~1200','1200~1400','1400~1600','1600~1800','1800~2000','2000~2200','2200~2400','2400~2600','2600~2800','2800~3000','3000~3100'}

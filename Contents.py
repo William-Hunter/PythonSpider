@@ -1,3 +1,4 @@
+#coding=utf-8
 import urllib2
 from BeautifulSoup import BeautifulSoup
 homepage='http://tt.71wx.net/xiaoshuo/5/5704/'
