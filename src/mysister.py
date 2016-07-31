@@ -20,18 +20,24 @@ def menu():
 	i=1
 	for a in chapterlist:
 		print i,homepage+a['href'],a.text
-		i=i+1
 		page(homepage+a['href'],a.text)
+		i=i+1	
 		time.sleep(1)
 
 def page(pageindex,title):	
 	request = urllib2.Request(pageindex)
 	request.add_header('User-Agent','Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.75 Safari/537.36')
-	doc = urllib2.urlopen(request)
+	
+	doc = access(request)
 	html = BeautifulSoup(doc)
-	context=html.findAll(id='content');
-	text="\r\n=================================\r\n"+title+"\r\n=================================\r\n"
-	text=text+context[0].text+''
+	content=html.findAll(id='content');	
+	while not content:
+		doc = access(request)
+		html = BeautifulSoup(doc)
+		content=html.findAll(id='content');
+
+	text="\r\n\r\n=================================\r\n"+title+"\r\n=================================\r\n"
+	text=text+content[0].text+''
 	text=text.replace("&nbsp;","\r\n")
 	text=text.replace("go","")
 	text=text.replace("over","")
@@ -40,6 +46,9 @@ def page(pageindex,title):
 	fp.write(text)
 	fp.close()
 
+def access(request):
+	return urllib2.urlopen(request)
+
 if __name__ == '__main__':
 	reload(sys)
 	sys.setdefaultencoding('utf-8') 
@@ -47,6 +56,6 @@ if __name__ == '__main__':
 
 	menu()
 	
-	# page("http://www.lewenwu.com/books/31/31154/10792732.html","第一百零九章 异子而换")
+	# page("http://www.lewenwu.com/books/31/31154/6613420.html","楔子")
 
 	print "END"
